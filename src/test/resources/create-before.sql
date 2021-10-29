@@ -1,0 +1,11 @@
+delete from comment;
+delete from book;
+insert into book(id,code,author,name,description) values (1,'codebook1','author1','book1','description1');
+insert into book(id,code,author,name,description) values (2,'codebook2','author1','book2','description2');
+insert into book(id,code,author,name,description) values (3,'codebook3','author2','book3','description3');
+insert into comment(id,code,book_id,rating,text) values (4,'codecomment1',1,4.5,'text1');
+insert into comment(id,code,book_id,rating,text) values (5,'codecomment2',2,3.5,'text1');
+insert into comment(id,code,book_id,rating,text) values (6,'codecomment3',3,4.7,'text1');
+insert into comment(id,code,book_id,rating,text) values (7,'codecomment4',3,4.5,'text1');
+insert into comment(id,code,book_id,rating,text) values (8,'codecomment5',1,4.0,'text1');
+alter sequence hibernate_sequence restart with 9;
