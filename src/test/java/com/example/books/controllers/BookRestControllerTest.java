@@ -47,14 +47,14 @@ class BookRestControllerTest {
     }
 
     @Test
-    void getCommentByIdNonObject() throws Exception{
+    void getBookByIdNonObject() throws Exception{
         this.mockMvc.perform(get("/books/5"))
                 .andExpect(status().is4xxClientError())
                 .andExpect(jsonPath("$").value("Non Object"));
     }
 
     @Test
-    void putComment() throws Exception {
+    void putBook() throws Exception {
         BookDto bookDto = getBookDto2();
         bookDto.setId(null);
         bookDto.setComments(new ArrayList<>());
@@ -68,18 +68,16 @@ class BookRestControllerTest {
     }
 
     @Test
-    void deleteComment() throws  Exception{
+    void deleteBook() throws  Exception{
         this.mockMvc.perform(delete("/books/3")
-                .content(objectMapper.writeValueAsString(getBookDto3()))
-                .contentType(MediaType.APPLICATION_JSON)
         )
                 .andExpect(status().isAccepted())
-                .andExpect(jsonPath("$.id").value("3"))
+                .andExpect(jsonPath("$").value("Comment with id=3 is deleted!"))
         ;
     }
 
     @Test
-    void updateComment() throws  Exception{
+    void updateBook() throws  Exception{
         BookDto bookDto2 = getBookDto2();
         bookDto2.setDescription("textmodified");
         this.mockMvc.perform(put("/books/2")

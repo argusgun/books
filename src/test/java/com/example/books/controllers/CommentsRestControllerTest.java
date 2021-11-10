@@ -34,7 +34,7 @@ class CommentsRestControllerTest {
     private  final ObjectMapper objectMapper = new ObjectMapper();
 
     @Test
-    void getBooks() throws Exception {
+    void getComments() throws Exception {
         this.mockMvc.perform(get("/comments"))
                 .andExpect(status().is2xxSuccessful())
                 .andExpect(content().json(objectMapper.writeValueAsString(Arrays.asList(getCommentDto1(),getCommentDto2(),getCommentDto3(),getCommentDto4(),getCommentDto5()))));
@@ -58,8 +58,8 @@ class CommentsRestControllerTest {
     void putComment() throws Exception {
         CommentDto commentDto = getCommentDto2();
         commentDto.setId(null);
-        this.mockMvc.perform(post("/comments")
-                .content(objectMapper.writeValueAsString(Arrays.asList(commentDto,getBookDto3())))
+        this.mockMvc.perform(post("/comments/books/3")
+                .content(objectMapper.writeValueAsString(commentDto))
                 .contentType(MediaType.APPLICATION_JSON)
         )
                 .andExpect(status().isCreated())
@@ -69,12 +69,9 @@ class CommentsRestControllerTest {
 
     @Test
     void deleteComment() throws  Exception{
-        this.mockMvc.perform(delete("/comments/6")
-                .content(objectMapper.writeValueAsString(getCommentDto3()))
-                .contentType(MediaType.APPLICATION_JSON)
-        )
+        this.mockMvc.perform(delete("/comments/6"))
                 .andExpect(status().isAccepted())
-                .andExpect(jsonPath("$.id").value("6"))
+                .andExpect(jsonPath("$").value("Comment with id=6 is deleted!"))
         ;
     }
 
