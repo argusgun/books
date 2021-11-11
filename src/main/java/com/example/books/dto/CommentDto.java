@@ -7,5 +7,5 @@ public class CommentDto {
     private Long id;
     private String code;
     private String text;
-    private float rating;
+    private double rating;
 }

@@ -14,7 +14,7 @@ public class CommentEntity {
     private Long id;
     private String code;
     private String text;
-    private float rating;
+    private double rating;
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @JoinColumn(name="book_id",foreignKey = @ForeignKey(name ="fk_book"))
     private BookEntity book;

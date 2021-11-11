@@ -25,8 +25,8 @@ public class CommentsRestController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Object> getCommentById(@PathVariable("id") Long id){
-        if(commentService.getCommentById(id)==null){return new ResponseEntity<>("Non Object",HttpStatus.BAD_REQUEST);}
+    public ResponseEntity<CommentDto> getCommentById(@PathVariable("id") Long id){
+        if(!commentService.findComment(id)){return new ResponseEntity<>(new CommentDto(),HttpStatus.BAD_REQUEST);}
         return new ResponseEntity<>(commentService.getCommentById(id),HttpStatus.OK );
     }
 
@@ -36,16 +36,14 @@ public class CommentsRestController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteComment(@PathVariable("id") Long id){
-        if(commentService.getCommentById(id).equals("error")){return new ResponseEntity<>("Non Object",HttpStatus.BAD_REQUEST);}
+    public ResponseEntity<Long> deleteComment(@PathVariable("id") Long id){
+        if(!commentService.findComment(id)){return new ResponseEntity<>(-1L,HttpStatus.BAD_REQUEST);}
         return new ResponseEntity<>(commentService.deleteComment(id),HttpStatus.ACCEPTED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Object> updateComment(@PathVariable("id") Long id,
-                                                @RequestBody CommentDto commentDto
-    ) {
-        return new ResponseEntity<>(commentService.updateComment(id,commentDto), HttpStatus.ACCEPTED);
+    public ResponseEntity<Object> updateComment(@RequestBody CommentDto commentDto) {
+        return new ResponseEntity<>(commentService.updateComment(commentDto), HttpStatus.ACCEPTED);
     }
 
 
